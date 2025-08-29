@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEC PLAY - Disciplinas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0096ff, #005bb5);
+      color: #000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem;
+    }
+
+    /* Menu hamburguer */
+    .menu {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Título */
+    h1 {
+      margin-top: 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #FFD700; /* Amarelo ouro */
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    /* Subtítulo */
+    h2 {
+      margin-top: 20px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #FFD700;
+      background: #222;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: 2px solid #FFD700;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    /* Botões das disciplinas */
+    .disciplinas-container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .disciplina {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      text-align: center;
+      background: #fff;
+      padding: 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #000;
+      border: 3px solid #000;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    /* Animação ao passar */
+    .disciplina:hover, .disciplina:focus {
+      background: #FFD700;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Ícones nos botões */
+    .disciplina img {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Rodapé */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    footer img {
+      width: 160px;
+    }
+
+    /* Botão de voltar */
+    .voltar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      background: #fff;
+      border-radius: 50%;
+      padding: 12px;
+      border: 3px solid #000;
+      cursor: pointer;
+      text-decoration: none;
+      color: #000;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .voltar:hover, .voltar:focus {
+      background: #FFD700;
+      transform: scale(1.1);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Título -->
+  <h1>MEC PLAY</h1>
+
+  <!-- Subtítulo -->
+  <h2>DISCIPLINAS</h2>
+
+  <!-- Lista de disciplinas -->
+  <div class="disciplinas-container">
+    <a href="#" class="disciplina" aria-label="Acessar disciplina de Eletricidade Básica">
+      <img src="https://img.icons8.com/ios-filled/50/electricity.png" alt=""> ELETRICIDADE BÁSICA
+    </a>
+    <a href="elementos_demaqatv.html" class="disciplina" aria-label="Acessar disciplina de Elementos de Máquinas">
+      <img src="https://img.icons8.com/ios-filled/50/gear.png" alt=""> ELEMENTOS DE MÁQUINAS
+    </a>
+    <a href="#" class="disciplina" aria-label="Acessar disciplina de Processo de Torneamento">
+      <img src="https://img.icons8.com/ios-filled/50/lathe.png" alt=""> PROCESSO DE TORNEAMENTO
+    </a>
+    <a href="metrologiaatv.html" class="disciplina" aria-label="Acessar disciplina de Metrologia">
+      <img src="https://img.icons8.com/ios-filled/50/ruler.png" alt=""> METROLOGIA
+    </a>
+    <a href="pneumaticaatv.html" class="disciplina" aria-label="Acessar disciplina de Pneumática">
+      <img src="https://img.icons8.com/ios-filled/50/first-aid-kit.png" alt=""> PNEUMÁTICA
+    </a>
+  </div>
+  
+  <!-- Botão de voltar -->
+  <a href="home.html" class="voltar" aria-label="Voltar para a página inicial">↩</a>
+
+</body>
+</html>

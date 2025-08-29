@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pneumática - Atividade</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #0096ff, #005bb5);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #FFD700;
+      margin-bottom: 10px;
+      font-size: 2rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .conteudo {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 850px;
+      width: 90%;
+      line-height: 1.6;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      margin-top: 10px;
+      animation: slideUp 1s ease-in-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .conteudo p, .conteudo li {
+      font-size: 1.1rem;
+    }
+    .download, .voltar {
+      margin-top: 20px;
+      display: inline-block;
+      background: #FFD700;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      border: 2px solid #000;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .download:hover, .voltar:hover {
+      background: #ffeb3b;
+      transform: scale(1.05);
+    }
+    .voltar {
+      background: #fff;
+      margin-left: 10px;
+    }
+
+    /* Acessibilidade extra */
+    a:focus, button:focus {
+      outline: 3px solid #000;
+      outline-offset: 3px;
+    }
+    /* Alto contraste */
+    @media (prefers-contrast: more) {
+      body {
+        background: #000 !important;
+        color: #fff !important;
+      }
+      .conteudo {
+        background: #fff !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo">Atividade 01 - Pneumática</h1>
+
+  <div class="conteudo" role="region" aria-labelledby="titulo">
+    <p><strong>Unidade de Ensino:</strong> Senai Colatina</p>
+    <p><strong>Unidade Curricular:</strong> Desenvolvimento de Sistema de Automação Mecânica</p>
+    <p><strong>Atividade:</strong> Cilindro simples ação e botão pulsador - Ligação Direta e Indireta</p>
+    <p><strong>Objetivo:</strong> O sistema utiliza um atuador de simples ação para movimentar chapas. Após acionar o botão pulsador, o cilindro avança; ao soltar, ele retorna, permitindo nova alimentação de peças. Esse circuito é denominado circuito de ligação direta.</p>
+    <p><strong>Execução:</strong></p>
+    <ul>
+      <li>Elaborar um diagrama do circuito pneumático, utilizando os elementos já conhecidos;</li>
+      <li>Especificar cada elemento utilizado no campo observação;</li>
+      <li>Salvar e enviar o circuito via classroom.</li>
+    </ul>
+  </div>
+
+  <a href="c:\Users\Aluno\Desktop\mecplay\dever\Atividade01-Pneumática-mecplay.docx" class="download" download aria-label="Baixar atividade em formato Word">📄 Baixar Atividade</a>
+  <a href="disciplinas.html" class="voltar" aria-label="Voltar para a página de disciplinas">↩ Voltar</a>
+
+  <div style="margin-top:20px; text-align:center;">
+    <h2>🔊 Ouça a atividade narrada</h2>
+    <audio controls>
+      <source src="c:\Users\Aluno\Desktop\mecplay\audio\pneumatica.mp3" type="audio/mpeg">
+      Seu navegador não suporta o elemento de áudio.
+    </audio>
+  </div>
+
+</body>
+</html>

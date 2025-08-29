@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Elementos de Máquinas - Atividade</title>
+<style>
+body {
+background: linear-gradient(180deg, #0096ff, #005bb5);
+color: #fff;
+font-family: Arial, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 20px;
+min-height: 100vh;
+animation: fadeIn 0.8s ease-in-out;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(16px); }
+to { opacity: 1; transform: translateY(0); }
+}
+h1 {
+color: #FFD700;
+margin-bottom: 10px;
+font-size: 2rem;
+text-align: center;
+letter-spacing: 1px;
+}
+.conteudo {
+background: #fff;
+color: #000;
+padding: 20px;
+border-radius: 20px;
+max-width: 850px;
+width: 90%;
+line-height: 1.6;
+box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+margin-top: 10px;
+animation: slideUp 0.8s ease-in-out;
+}
+@keyframes slideUp {
+from { opacity: 0; transform: translateY(24px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.conteudo p, .conteudo li { font-size: 1.1rem; }
+
+
+.imagem {
+margin-top: 20px;
+text-align: center;
+}
+.imagem img {
+max-width: 100%;
+border-radius: 15px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+
+.acoes {
+margin-top: 20px;
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+}
+.btn {
+display: inline-block;
+background: #FFD700;
+padding: 12px 20px;
+border-radius: 10px;
+text-decoration: none;
+color: #000;
+font-weight: bold;
+border: 2px solid #000;
+transition: transform 0.25s ease, background 0.3s ease;
+}
+.btn:hover, .btn:focus { background: #ffeb3b; transform: scale(1.04); }
+.btn.secundario { background: #fff; }
+
+
+/* Acessibilidade */
+a:focus, button:focus { outline: 3px solid #000; outline-offset: 3px; }
+@media (prefers-contrast: more) {
+body { background: #000 !important; color: #fff !important; }
+.conteudo { background: #fff !important; color: #000 !important; }
+}
+</style>
+</head>
+<body>
+<h1 id="titulo">Atividade - Elementos de Máquinas</h1>
+
+
+<div class="conteudo" role="region" aria-labelledby="titulo">
+<p><strong>Introdução:</strong> Os elementos de máquinas podem ser comparados aos órgãos do corpo humano, cada um com uma função essencial para o funcionamento do todo. Se algum deles falha, compromete o conjunto. Esta UC visa capacitar futuros profissionais da mecânica, proporcionando conhecimentos sobre componentes, suas funções, materiais e características principais.</p>
+
+
+<div class="imagem">
+<img src="Elementos de Máquinas.png" alt="Introdução aos Elementos de Máquinas">
+</div>
+
+
+<p><strong>Atividade:</strong></p>
+<ul>
+<li>Analise a relação apresentada na introdução entre órgãos do corpo humano e elementos de máquinas.</li>
+<li>Explique como uma falha em determinado componente pode comprometer o funcionamento de todo o conjunto.</li>
+<li>Liste exemplos de componentes mecânicos e descreva suas principais funções.</li>
+</ul>
+</div>
+
+
+<div class="acoes" aria-label="Ações da atividade">
+<a class="btn" href="ElementosMaquinas-Atividade.docx" download aria-label="Baixar atividade em formato Word">📄 Baixar Atividade</a>
+<a class="btn secundario" href="disciplinas.html" aria-label="Voltar para a página de disciplinas">↩ Voltar</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MEC PLAY — Vídeo Aula (Elétrica)</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--gold: #FFD700;
+--blue1: #0096ff;
+--blue2: #0072e0;
+--text: #000;
+--bg: linear-gradient(180deg, var(--blue1), var(--blue2));
+--radius: 16px;
+--shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+body {
+min-height: 100vh;
+display: flex; flex-direction: column; align-items: center;
+gap: 1.25rem; padding: 1rem; color: var(--text);
+background: var(--bg); transition: background .3s ease;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+
+h1 { margin-top: 48px; font-size: 2.2rem; letter-spacing: 1px; color: var(--gold); text-shadow: 2px 2px 4px #000; text-align: center; }
+.subtitle { color: #fff; opacity: .95; text-align: center; margin-top: 4px; }
+
+
+.card {
+width: 100%; max-width: 980px; background: #fff; border: 3px solid #000;
+border-radius: var(--radius); box-shadow: var(--shadow);
+padding: 16px; display: grid; gap: 16px;
+}
+
+
+.video-wrap { position: relative; }
+video {
+width: 100%; height: auto; border-radius: 12px; border: 3px solid #000; background: #000;
+}
+.cc-badge { position: absolute; right: 12px; bottom: 12px; background: rgba(0,0,0,.6); color: #fff; padding: 4px 8px; border-radius: 8px; font-size: .85rem; }
+
+
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.btn {
+display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+padding: 12px; font-weight: bold; background: #fff; color: #000; border: 3px solid #000; border-radius: 12px; cursor: pointer; text-decoration: none; text-align: center;
+transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover, .btn:focus { transform: scale(1.03); box-shadow: 0 0 12px var(--gold); outline: none; }
+.btn[aria-pressed="true"] { background: #000; color: var(--gold); }
+
+
+.meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.meta small { font-size: .95rem; }
+
+
+.high-contrast { background: #000 !important; color: var(--gold) !important; }
+.high-contrast .card { background: #111; color: var(--gold); }
+.high-contrast video { border-color: var(--gold); }
+
+
+details { border: 2px dashed #000; border-radius: 12px; padding: 10px; background: #fafafa; }
+summary { cursor: pointer; font-weight: bold; }
+
+
+footer { margin-top: auto; text-align: center; padding: 12px 0; }
+</style>
+</head>
+<body>
+<h1>MEC PLAY</h1>
+<p class="subtitle">Vídeo Aula — Eletricidade</p>
+
+
+<main class="card" aria-labelledby="titulo-video">
+<h2 id="titulo-video">Aula: Introdução à Elétrica</h2>
+
+
+<div class="video-wrap">
+<video id="player" controls preload="metadata" tabindex="0" aria-label="Reprodutor de vídeo da aula de elétrica">
+<source src="c:\Users\Aluno\Desktop\mecplay\video\eletrica.mp4" type="video/mp4" />
+<track id="track-pt" src="eletrica.vtt" kind="subtitles" srclang="pt-BR" label="Português (Brasil)" default />
+Seu navegador não suporta o elemento de vídeo.
+</video>
+<span class="cc-badge" aria-hidden="true">CC</span>
+</div>
+
+
+<div class="controls" aria-label="Controles avançados do vídeo">
+<button class="btn" id="playPause" aria-pressed="false">▶︎ / ❚❚ Reproduzir/Pausar</button>
+<button class="btn" id="mute" aria-pressed="false">🔇 Ativar/Mutar</button>
+<button class="btn" id="speedDown">⏬ Velocidade -</button>
+<button class="btn" id="speedUp">⏫ Velocidade +</button>
+<button class="btn" id="speedReset">⟲ Velocidade 1.0x</button>
+<button class="btn" id="toggleCC" aria-pressed="true">CC Ligar/Desligar</button>
+<a class="btn" id="downloadVideo" href="c:\Users\Aluno\Desktop\mecplay\video\eletrica.mp4" download>⬇ Baixar Vídeo (.mp4)</a>
+</div>
+
+
+<div class="meta">
+<small id="status">⏱ Velocidade atual: <strong>1.0x</strong> — Atalhos: Barra de Espaço (Play/Pause), F (Tela Cheia), M (Mudo), + / - (Velocidade), H (Alto contraste).</small>
+<small>Duração: <span id="duracao">--:--</span></small>
+</div>
+
+
+<details>
+<summary>Transcrição / Roteiro (para acessibilidade)</summary>
+<p style="margin-top:8px; line-height:1.5">
+Em breve: transcrição textual do conteúdo do vídeo.
+</p>
+</details>
+</main>
+
+
+<footer>
+<small>Pressione <strong>H</strong> para alternar alto contraste • © MEC PLAY</small>
+</footer>
+
+
+<script>
+const v = document.getElementById('player');
+const playPause = document.getElementById('playPause');
+const muteBtn = document.getElementById('mute');
+const speedDown = document.getElementById('speedDown');
+const speedUp = document.getElementById('speedUp');
+const speedReset = document.getElementById('speedReset');
+const toggleCC = document.getElementById('toggleCC');
+const status = document.getElementById('status');
+const duracao = document.getElementById('duracao');
+
+
+v.addEventListener('loadedmetadata', () => {
+const mins = String(Math.floor(v.duration / 60)).padStart(2,'0');
+const secs = String(Math.floor(v.duration % 60)).padStart(2,'0');
+duracao.textContent = `${mins}:${secs}`;
+});
+
+
+function togglePlay(){ if (v.paused) { v.play(); playPause.setAttribute('aria-pressed', 'true'); } else { v.pause(); playPause.setAttribute('aria-pressed', 'false'); } }
+playPause.addEventListener('click', togglePlay);
+
+
+function toggleMute(){ v.muted = !v.muted; muteBtn.setAttribute('aria-pressed', String(v.muted)); }
+muteBtn.addEventListener('click', toggleMute);
+
+
+function setSpeed(rate){ v.playbackRate = Math.min(3, Math.max(0.25, rate)); status.innerHTML = `⏱ Velocidade atual: <strong>${v.playbackRate.toFixed(2)}x</strong> — Atalhos: Barra de Espaço (Play/Pause), F (Tela Cheia), M (Mudo), + / - (Velocidade), H (Alto contraste).`; }
+speedDown.addEventListener('click', () => setSpeed(v.playbackRate - 0.25));
+speedUp.addEventListener('click', () => setSpeed(v.playbackRate + 0.25));
+speedReset.addEventListener('click', () => setSpeed(1.0));
+
+
+function getTextTrack(){ return v.textTracks && v.textTracks[0] ? v.textTracks[0] : null; }
+function toggleCaptions(){ const track = getTextTrack(); if (!track) return; track.mode = (track.mode === 'showing') ? 'disabled' : 'showing'; toggleCC.setAttribute('aria-pressed', track.mode === 'showing' ? 'true' : 'false'); }
+v.addEventListener('loadeddata', () => { const track = getTextTrack(); if (track) { track.mode = 'showing'; toggleCC.setAttribute('aria-pressed','true'); }});
+toggleCC.addEventListener('click', toggleCaptions);
+
+
+document.addEventListener('keydown', (e) => {
+const key = e.key.toLowerCase();
+if (key === ' ') { e.preventDefault(); togglePlay(); }
+else if (key === 'm') { toggleMute(); }
+else if (key === '+') { setSpeed(v.playbackRate + 0.25); }
+else if (key === '-') { setSpeed(v.playbackRate - 0.25); }
+else if (key === 'f') { if (document.fullscreenElement) { document.exitFullscreen(); } else { v.requestFullscreen().catch(()=>{}); } }
+else if (key === 'h') { document.body.classList.toggle('high-contrast'); }
+});
+
+
+document.querySelectorAll('.btn').forEach(btn => {
+btn.addEventListener('mouseenter', () => {
+const audio = new Audio('https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg');
+audio.volume = 0.25; audio.play().catch(()=>{});
+});
+});
+</script>
+</body>
+</html>

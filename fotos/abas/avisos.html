@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEC PLAY - Avisos</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #0096ff, #005bb5);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #FFD700;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .avisos-container {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 850px;
+      width: 90%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: slideUp 1s ease-in-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .aviso {
+      background: #f2f2f2;
+      border-left: 6px solid #FFD700;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+    .aviso h2 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #000;
+    }
+    .aviso p {
+      font-size: 1rem;
+      color: #333;
+    }
+    .aviso small {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    a.voltar {
+      margin-top: 20px;
+      display: inline-block;
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      border: 2px solid #000;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    a.voltar:hover {
+      background: #FFD700;
+      transform: scale(1.05);
+    }
+    a:focus {
+      outline: 3px solid #000;
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo">Avisos Importantes</h1>
+  
+  <div class="avisos-container" role="region" aria-labelledby="titulo">
+    <div class="aviso">
+      <h2>Troca de horário - Metrologia</h2>
+      <p>A aula de Metrologia da próxima quinta-feira será às 14h, em vez de 15h45.</p>
+      <small>Publicado em: 25/08/2025</small>
+    </div>
+    
+    <div class="aviso">
+      <h2>Entrega da Atividade de Pneumática</h2>
+      <p>Os alunos devem enviar a Atividade 01 de Pneumática até sexta-feira via Classroom.</p>
+      <small>Publicado em: 24/08/2025</small>
+    </div>
+    
+    <div class="aviso">
+      <h2>Feriado na próxima semana</h2>
+      <p>Não haverá aula na segunda-feira (01/09) devido ao feriado municipal.</p>
+      <small>Publicado em: 23/08/2025</small>
+    </div>
+  </div>
+  
+  <a href="home.html" class="voltar" aria-label="Voltar para a página inicial">↩ Voltar</a>
+</body>
+</html>

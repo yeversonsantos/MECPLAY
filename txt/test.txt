@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MecPlay</title>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #4e54c8;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #4e54c8;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #4e54c8;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #3b40a0;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: 0.5rem;
+    }
+
+    .forgot-password a {
+      color: #4e54c8;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mensagem de erro */
+    .error-message {
+      color: red;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+
+    /* Responsivo para celular */
+    @media (max-width: 400px) {
+      .login-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Entrar</h2>
+    <div id="error" class="error-message"></div>
+    <form id="loginForm">
+      <label for="username">Usuário</label>
+      <input type="text" id="username" name="username" placeholder="Digite seu usuário" required />
+
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" placeholder="Digite sua senha" required />
+
+      <button type="submit">Login</button>
+
+      <div class="forgot-password">
+        <a href="#">Esqueceu a senha?</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  const form = document.getElementById('loginForm');
+  const errorDiv = document.getElementById('error');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const username = form.username.value.trim();
+    const password = form.password.value.trim();
+
+    if (username === 'aluno' && password === 'aluno') {
+      errorDiv.style.display = 'none';
+      // Redireciona para a página inicial após login bem-sucedido
+      window.location.href = 'home.html';
+    } else {
+      errorDiv.textContent = 'Usuário ou senha incorretos.';
+      errorDiv.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>
