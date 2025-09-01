@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MecPlay - Home</title>
+  
+  <script>
+    // Verifica se está logado
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    function abrirMenu() {
+      document.getElementById("sidebar").classList.add("open");
+    }
+    function fecharMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+    }
+  </script>
+
   <style>
     * {
       margin: 0;
@@ -172,6 +187,7 @@
     <p><strong>Nome:</strong> ALUNO SENAI</p>
     <p><strong>Email:</strong> alunosenai.@aluno.senai.br</p>
     <p><strong>RA:</strong> 0631</p>
+    <button onclick="sair()">Sair</button>
   </div>
 </div>
 
@@ -227,5 +243,12 @@
       });
     });
   </script>
+   <script>
+    function sair() {
+      localStorage.removeItem("logado");
+      window.location.href = "login.html";
+    }
+  </script>
 </body>
 </html>
+
