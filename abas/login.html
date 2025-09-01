@@ -107,7 +107,8 @@ function login() {
         return;
     }
 
-    if(user === 'aluno' && pass === 'aluno') {
+    if(user === 'aluno' && pass === '1234') {
+        localStorage.setItem("logado", "true");  // salva sessão
         message.style.color = "green";
         message.textContent = "Login bem-sucedido! Redirecionando...";
         setTimeout(() => {
@@ -122,3 +123,4 @@ function login() {
 
 </body>
 </html>
+
