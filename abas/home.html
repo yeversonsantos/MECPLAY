@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MecPlay - Home</title>
-
   <style>
     * {
       margin: 0;
@@ -76,6 +75,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* Animação hover */
     .menu-item:hover img,
     .menu-item:focus img {
       transform: scale(1.1);
@@ -83,16 +83,19 @@
       outline: none;
     }
 
+    /* Foco visível */
     .menu-item:focus {
       outline: 3px solid #FFD700;
       border-radius: 12px;
     }
 
+    /* Alto contraste */
     .high-contrast {
       background: #000 !important;
       color: #FFD700 !important;
     }
 
+    /* Rodapé com logo */
     footer {
       margin-top: auto;
       text-align: center;
@@ -103,85 +106,63 @@
       width: 160px;
     }
 
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -300px;
-      width: 250px;
-      height: 100%;
-      background: #fff;
-      border-right: 3px solid #000;
-      box-shadow: 3px 0 6px rgba(0,0,0,0.3);
-      padding: 20px;
-      transition: left 0.3s ease;
-      z-index: 1000;
-    }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    border-right: 3px solid #000;
+    box-shadow: 3px 0 6px rgba(0,0,0,0.3);
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
 
-    .sidebar.open {
-      left: 0;
-    }
+  .sidebar.open {
+    left: 0;
+  }
 
-    .sidebar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
 
-    .sidebar-header h3 {
-      margin: 0;
-      color: #005bb5;
-    }
+  .sidebar-header h3 {
+    margin: 0;
+    color: #005bb5;
+  }
 
-    .fechar {
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: red;
-    }
+  .fechar {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: red;
+  }
 
-    .sidebar-content p {
-      margin: 10px 0;
-      font-size: 1rem;
-    }
+  .sidebar-content p {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+</style>
 
-    .logout {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: red;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-  </style>
-
-  <script>
-    // Verificação de login
-    if (localStorage.getItem("logado") !== "true") {
-      window.location.href = "login.html";
-    }
-
-    function sair() {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
-
-    function abrirMenu() {
-      document.getElementById("sidebar").classList.add("open");
-    }
-    function fecharMenu() {
-      document.getElementById("sidebar").classList.remove("open");
-    }
-  </script>
+<script>
+  function abrirMenu() {
+    document.getElementById("sidebar").classList.add("open");
+  }
+  function fecharMenu() {
+    document.getElementById("sidebar").classList.remove("open");
+  }
+</script>
 </head>
 <body>
 
  <!-- Menu -->
 <div class="menu" aria-label="Abrir menu principal" onclick="abrirMenu()">☰</div>
 
-<!-- Sidebar -->
+<!-- Sidebar da conta do aluno -->
 <div id="sidebar" class="sidebar">
   <div class="sidebar-header">
     <h3>Conta do Aluno</h3>
@@ -189,9 +170,8 @@
   </div>
   <div class="sidebar-content">
     <p><strong>Nome:</strong> ALUNO SENAI</p>
-    <p><strong>Email:</strong> alunosenai@aluno.senai.br</p>
+    <p><strong>Email:</strong> alunosenai.@aluno.senai.br</p>
     <p><strong>RA:</strong> 0631</p>
-    <button class="logout" onclick="sair()">Sair</button>
   </div>
 </div>
 
@@ -200,34 +180,34 @@
 
   <!-- Botões circulares -->
   <div class="menu-container">
-    <a href="disciplinas.html" class="menu-item">
+    <a href="disciplinas.html" class="menu-item" aria-label="Abrir página de disciplinas">
       <img src="https://img.icons8.com/ios-filled/100/000000/book.png" alt="Disciplinas">
       DISCIPLINAS
     </a>
-    <a href="abas/videoaulaeletri.html" class="menu-item">
+    <a href="c:\Users\Aluno\Desktop\mecplay\abas\videoaulaeletri.html" class="menu-item" aria-label="Abrir página de vídeos aulas">
       <img src="https://img.icons8.com/ios-filled/100/000000/video.png" alt="Vídeos Aulas">
       VÍDEOS AULAS
     </a>
-    <a href="#" class="menu-item">
+    <a href="#" class="menu-item" aria-label="Abrir página de aula prática">
       <img src="https://img.icons8.com/ios-filled/100/000000/maintenance.png" alt="Aula Prática">
       AULA PRÁTICA
     </a>
-    <a href="notas.html" class="menu-item">
+    <a href="notas.html" class="menu-item" aria-label="Abrir página de notas e faltas">
       <img src="https://img.icons8.com/ios-filled/100/000000/todo-list.png" alt="Notas e Faltas">
       NOTAS/FALTAS
     </a>
-    <a href="avisos.html" class="menu-item">
+    <a href="avisos.html" class="menu-item" aria-label="Abrir página de avisos">
       <img src="https://img.icons8.com/ios-filled/100/000000/bell.png" alt="Avisos">
       AVISOS
     </a>
-    <a href="horario.html" class="menu-item">
+    <a href="horario.html" class="menu-item" aria-label="Abrir página de horários">
       <img src="https://img.icons8.com/ios-filled/100/000000/clock.png" alt="Horários">
       HORÁRIOS
     </a>
   </div>
 
   <footer>
-    <img src="../fotos/senai-logo-0.png" alt="Logo SENAI">
+    <img src="c:\Users\Aluno\Desktop\mecplay\fotos\senai-logo-0.png" alt="Logo SENAI">
   </footer>
 
   <script>
