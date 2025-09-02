@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elementos de Máquinas - Atividade (com Vídeo Libras PIP)</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #0066cc, #003366);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      color: #FFD700;
+      margin-bottom: 10px;
+      font-size: 2rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .conteudo {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 900px;
+      width: 90%;
+      line-height: 1.6;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      margin-top: 10px;
+      animation: slideUp 1s ease-in-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .conteudo p, .conteudo li {
+      font-size: 1.1rem;
+      text-align: justify;
+    }
+    .conteudo img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+    .download, .voltar {
+      margin-top: 20px;
+      display: inline-block;
+      background: #FFD700;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      border: 2px solid #000;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .download:hover, .voltar:hover {
+      background: #ffeb3b;
+      transform: scale(1.05);
+    }
+    .voltar {
+      background: #fff;
+      margin-left: 10px;
+    }
+    /* Acessibilidade */
+    a:focus, button:focus {
+      outline: 3px solid #000;
+      outline-offset: 3px;
+    }
+    /* Janela de vídeo Libras (PIP) */
+    #librasContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 280px;
+      max-width: 40%;
+      aspect-ratio: 16 / 9;
+      border: 3px solid #FFD700;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      background: #000;
+      z-index: 999;
+      display: none; /* só aparece quando o áudio começar */
+    }
+    #librasVideo {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo">Introdução - Elementos de Máquinas</h1>
+
+  <div class="conteudo" role="region" aria-labelledby="titulo">
+    <img src="../fotos/elementos-de-maquinas.jpg" alt="Imagem ilustrativa sobre elementos de máquinas e corpo humano">
+    <p>
+      Os elementos de máquinas podem ser comparados aos órgãos do corpo humano, cada um com uma função essencial para o funcionamento do todo. 
+      Se algum deles falha, compromete o conjunto. 
+      Esta UC visa capacitar futuros profissionais da mecânica, proporcionando conhecimentos sobre componentes, suas funções, materiais e características principais.
+    </p>
+    
+    <h2>Atividades</h2>
+    <ul>
+      <li><strong>Atividade 1:</strong> Faça um levantamento dos principais elementos de máquinas (parafusos, porcas, engrenagens, mancais e eixos) e descreva sua função em um sistema mecânico.</li>
+      <li><strong>Atividade 2:</strong> Compare a função de um eixo com a função da coluna vertebral no corpo humano. Explique a analogia.</li>
+      <li><strong>Atividade 3:</strong> Elabore um desenho técnico simples de um parafuso e identifique suas principais dimensões (diâmetro, passo, comprimento).</li>
+      <li><strong>Atividade 4:</strong> Pesquise os diferentes tipos de mancais existentes e dê exemplos práticos de onde eles são aplicados.</li>
+      <li><strong>Atividade 5:</strong> Explique como a falha de uma engrenagem pode comprometer todo o funcionamento de uma máquina.</li>
+    </ul>
+  </div>
+
+  <a href="Atividade-Elementos-Maquinas.docx" class="download" download>📄 Baixar Atividade</a>
+  <a href="disciplinas.html" class="voltar">↩ Voltar</a>
+
+  <div style="margin-top:20px; text-align:center;">
+    <h2>🔊 Ouça a introdução narrada</h2>
+    <audio id="narAudio" controls>
+      <source src="../audio/elementosdemaqu.mp3" type="audio/mpeg">
+      Seu navegador não suporta o elemento de áudio.
+    </audio>
+  </div>
+
+  <!-- Vídeo Libras em modo janela menor -->
+  <div id="librasContainer">
+    <video id="librasVideo" preload="metadata" aria-label="Vídeo em Libras de Elementos de Máquinas">
+      <source src="libra-elemento-de-maq.mp4" type="video/mp4">
+      Seu navegador não suporta a tag de vídeo. 
+    </video>
+  </div>
+
+  <script>
+    const audio = document.getElementById("narAudio");
+    const video = document.getElementById("librasVideo");
+    const container = document.getElementById("librasContainer");
+
+    audio.addEventListener("play", () => {
+      container.style.display = "block";
+      video.currentTime = audio.currentTime;
+      video.play();
+    });
+
+    audio.addEventListener("pause", () => {
+      video.pause();
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      if (Math.abs(video.currentTime - audio.currentTime) > 0.5) {
+        video.currentTime = audio.currentTime;
+      }
+    });
+
+    audio.addEventListener("ended", () => {
+      video.pause();
+      video.currentTime = 0;
+      container.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>
