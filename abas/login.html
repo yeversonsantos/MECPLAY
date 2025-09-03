@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MECPLAY</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: linear-gradient(to bottom, #4facfe, #00f2fe);
+        position: relative;
+    }
+
+    /* Fundo com ondas suaves */
+    body::before, body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        background: url('https://i.ibb.co/ZY7zNch/wave-texture.png');
+        background-size: cover;
+        animation: waves 15s infinite linear;
+        opacity: 0.5;
+        z-index: -2;
+    }
+
+    body::after {
+        animation: waves 25s infinite reverse linear;
+        opacity: 0.3;
+    }
+
+    @keyframes waves {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-500px); }
+    }
+
+    /* Container do login flutuando */
+    .login-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        width: 350px;
+        opacity: 0;
+        animation: fadeSlide 1s forwards, floating 6s ease-in-out infinite;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Animação inicial de entrada */
+    @keyframes fadeSlide {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Animação de flutuação */
+    @keyframes floating {
+        0%   { transform: translateY(0) scale(1); }
+        50%  { transform: translateY(-10px) scale(1.02); }
+        100% { transform: translateY(0) scale(1); }
+    }
+
+      body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: linear-gradient(to bottom, #4facfe, #00f2fe);
+        position: relative;
+    }
+
+    /* Fundo com ondas suaves */
+    body::before, body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        background: url('https://i.ibb.co/ZY7zNch/wave-texture.png');
+        background-size: cover;
+        animation: waves 15s infinite linear;
+        opacity: 0.5;
+        z-index: -2;
+    }
+
+    body::after {
+        animation: waves 25s infinite reverse linear;
+        opacity: 0.3;
+    }
+
+    @keyframes waves {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-500px); }
+    }
+
+    /* Container do login flutuando */
+    .login-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        width: 350px;
+        opacity: 0;
+        animation: fadeSlide 1s forwards, floating 6s ease-in-out infinite;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Reflexo do container */
+    .login-container::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        border-radius: inherit;
+        transform: scaleY(-1);
+        opacity: 0.2;
+        filter: blur(3px);
+    }
+
+    /* Animação inicial de entrada */
+    @keyframes fadeSlide {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Animação de flutuação */
+    @keyframes floating {
+        0%   { transform: translateY(0) scale(1); }
+        50%  { transform: translateY(-10px) scale(1.02); }
+        100% { transform: translateY(0) scale(1); }
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: linear-gradient(to bottom, #4facfe, #00f2fe);
+    }
+
+    /* Fundo animado água */
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 5%, transparent 20%),
+                    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 5%, transparent 20%),
+                    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.1) 5%, transparent 20%);
+        background-size: 200px 200px;
+        animation: agua 10s infinite linear;
+        z-index: -1;
+    }
+
+    @keyframes agua {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(-50px, -30px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        width: 350px;
+        opacity: 0;
+        transform: translateY(-50px);
+        animation: fadeSlide 1s forwards;
+        position: relative;
+        z-index: 1;
+    }
+
+    @keyframes fadeSlide {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-container {
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        width: 350px;
+        opacity: 0;
+        transform: translateY(-50px);
+        animation: fadeSlide 1s forwards;
+    }
+
+    @keyframes fadeSlide {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    input:focus {
+        outline: 3px solid #4facfe;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #4facfe;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background: #00f2fe;
+    }
+
+    .message {
+        color: red;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="login-container" role="form" aria-label="Formulário de Login">
+    <h2>Login</h2>
+    <label for="username">Usuário:</label>
+    <input type="text" id="username" aria-required="true">
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" aria-required="true">
+
+    <button onclick="login()">Entrar</button>
+    <div class="message" id="message" role="alert" aria-live="assertive"></div>
+</div>
+
+<script>
+function login() {
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const message = document.getElementById('message');
+
+    if(user === '' || pass === '') {
+        message.textContent = "Por favor, preencha todos os campos.";
+        return;
+    }
+
+    if(user === 'aluno' && pass === '1234') {
+        localStorage.setItem("logado", "true");  // salva sessão
+        message.style.color = "green";
+        message.textContent = "Login bem-sucedido! Redirecionando...";
+        setTimeout(() => {
+            window.location.href = 'home.html';
+        }, 1000);
+    } else {
+        message.style.color = "red";
+        message.textContent = "Usuário ou senha incorretos.";
+    }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
