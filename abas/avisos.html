@@ -5,6 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MEC PLAY - Avisos</title>
+  
+  <script>
+    // Verifica se está logado
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login.html";
+    }
+  
   <style>
     body {
       background: linear-gradient(180deg, #0096ff, #005bb5);
@@ -113,4 +120,5 @@
 </body>
 
 </html>
+
 
