@@ -5,6 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MEC PLAY — Vídeo Aulas</title>
+  
+  <script>
+    // Verifica se está logado
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    function abrirMenu() {
+      document.getElementById("sidebar").classList.add("open");
+    }
+    function fecharMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+    }
+  </script>
+  
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -171,6 +186,7 @@ videoSelect.addEventListener('change', () => {
 </body>
 
 </html>
+
 
 
 
