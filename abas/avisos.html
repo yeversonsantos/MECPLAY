@@ -11,6 +11,14 @@
     if (localStorage.getItem("logado") !== "true") {
       window.location.href = "login.html";
     }
+
+    function abrirMenu() {
+      document.getElementById("sidebar").classList.add("open");
+    }
+    function fecharMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+    }
+  </script>
   
   <style>
     body {
@@ -120,5 +128,6 @@
 </body>
 
 </html>
+
 
 
