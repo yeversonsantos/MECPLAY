@@ -1,34 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    
-    <script>
-    // Verifica se o professor está logado
-    if (localStorage.getItem("professor_logado") !== "true") {
-        // Se não estiver logado, volta para a página de login
-        window.location.href = "login_professor.html";
-    }
-</script>
-    
-    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Área dos Professores - MECPLAY</title>
-
-    <script>
-    // Verifica se está logado
-    if (localStorage.getItem("logado") !== "true") {
-      window.location.href = "login_professores.html";
-    }
-
-    function abrirMenu() {
-      document.getElementById("sidebar").classList.add("open");
-    }
-    function fecharMenu() {
-      document.getElementById("sidebar").classList.remove("open");
-    }
-  </script>
-    
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -100,7 +75,6 @@
 </style>
 </head>
 <body>
-    
 
 <header>Área dos Professores - MECPLAY</header>
 
@@ -109,14 +83,7 @@
     <a href="turmas.html">Turmas</a>
     <a href="atividades.html">Atividades</a>
     <a href="avaliacoes.html">Avaliações</a>
-    <a href="#" onclick="logoutProfessor()">Sair</a>
-
-<script>
-function logoutProfessor() {
-    localStorage.removeItem("professor_logado"); // apaga a sessão
-    window.location.href = "login_professor.html"; // volta para login
-}
-</script>
+    <a href="login.html">Sair</a>
 </nav>
 
 <main>
@@ -140,8 +107,4 @@ function logoutProfessor() {
 </footer>
 
 </body>
-
 </html>
-
-
-
