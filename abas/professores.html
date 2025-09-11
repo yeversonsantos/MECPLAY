@@ -91,6 +91,7 @@
 </style>
 </head>
 <body>
+    
 
 <header>Área dos Professores - MECPLAY</header>
 
@@ -99,7 +100,14 @@
     <a href="turmas.html">Turmas</a>
     <a href="atividades.html">Atividades</a>
     <a href="avaliacoes.html">Avaliações</a>
-    <a href="login.html">Sair</a>
+    <a href="#" onclick="logoutProfessor()">Sair</a>
+
+<script>
+function logoutProfessor() {
+    localStorage.removeItem("professor_logado"); // apaga a sessão
+    window.location.href = "login_professor.html"; // volta para login
+}
+</script>
 </nav>
 
 <main>
@@ -125,4 +133,5 @@
 </body>
 
 </html>
+
 
