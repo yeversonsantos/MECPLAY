@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Professores</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to right, #ff7f50, #ffb347);
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        width: 350px;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ff7f50;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    input:focus {
+        outline: 3px solid #ff7f50;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #ff7f50;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background: #ff9966;
+    }
+
+    .message {
+        color: red;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<div class="login-container" role="form" aria-label="Login de Professores">
+    <h2>Login - Professores</h2>
+    <label for="username">Usuário:</label>
+    <input type="text" id="username" aria-required="true">
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" aria-required="true">
+
+    <button onclick="loginProfessor()">Entrar</button>
+    <div class="message" id="message" role="alert" aria-live="assertive"></div>
+</div>
+
+<script>
+function loginProfessor() {
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const message = document.getElementById('message');
+
+    if(user === '' || pass === '') {
+        message.textContent = "Por favor, preencha todos os campos.";
+        return;
+    }
+
+    // Usuário e senha para professores
+    if(user === 'professor' && pass === '4321') {
+        localStorage.setItem("professor_logado", "true");
+        message.style.color = "green";
+        message.textContent = "Login bem-sucedido! Redirecionando...";
+        setTimeout(() => {
+            window.location.href = 'professores.html';
+        }, 1000);
+    } else {
+        message.style.color = "red";
+        message.textContent = "Usuário ou senha incorretos.";
+    }
+}
+</script>
+
+</body>
+</html>
