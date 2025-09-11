@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Área dos Professores - MECPLAY</title>
+
+    <script>
+    // Verifica se está logado
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login_professores.html";
+    }
+
+    function abrirMenu() {
+      document.getElementById("sidebar").classList.add("open");
+    }
+    function fecharMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+    }
+  </script>
+    
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -107,4 +122,5 @@
 </footer>
 
 </body>
+
 </html>
