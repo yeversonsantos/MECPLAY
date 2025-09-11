@@ -292,6 +292,12 @@
     <input type="password" id="password" aria-required="true">
 
     <button onclick="login()">Entrar</button>
+
+    <!-- Novo botão para área de professores -->
+    <button onclick="professorLogin()" style="margin-top:10px; background:#ff7f50;">
+        Área de Professores
+    </button>
+
     <div class="message" id="message" role="alert" aria-live="assertive"></div>
 </div>
 
@@ -318,10 +324,16 @@ function login() {
         message.textContent = "Usuário ou senha incorretos.";
     }
 }
+
+// Função para área de professores
+function professorLogin() {
+    window.location.href = 'professores.html';
+}
 </script>
 
 </body>
 </html>
+
 
 
 
