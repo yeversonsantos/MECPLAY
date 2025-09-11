@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    
+    <script>
+    // Verifica se o professor está logado
+    if (localStorage.getItem("professor_logado") !== "true") {
+        // Se não estiver logado, volta para a página de login
+        window.location.href = "login_professor.html";
+    }
+</script>
+    
     <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,5 +142,6 @@ function logoutProfessor() {
 </body>
 
 </html>
+
 
 
