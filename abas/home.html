@@ -236,16 +236,6 @@
         document.body.classList.toggle("high-contrast");
       }
     });
-
-    // Sons de feedback (opcional)
-    const buttons = document.querySelectorAll(".menu-item img");
-    buttons.forEach(btn => {
-      btn.addEventListener("mouseenter", () => {
-        const audio = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
-        audio.play();
-      });
-    });
-  </script>
    <script>
     function sair() {
       localStorage.removeItem("logado");
@@ -254,6 +244,7 @@
   </script>
 </body>
 </html>
+
 
 
 
