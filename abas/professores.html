@@ -113,6 +113,12 @@
             <button type="submit">📤 Enviar Vídeo</button>
         </form>
     </div>
+
+    <div class="card">
+    <h2>Vídeos Enviados</h2>
+    <div id="listaProfessor"></div>
+</div>
+    
 </main>
 
 <footer>
@@ -142,7 +148,39 @@ document.getElementById("atividadeForm").addEventListener("submit", function(e){
     alert("✅ Vídeo enviado com sucesso!");
     this.reset();
 });
+
+    function listarProfessor(){
+    const lista = document.getElementById("listaProfessor");
+    let atividades = JSON.parse(localStorage.getItem("atividades")) || [];
+    lista.innerHTML = atividades.length===0 ? "<p>Nenhum vídeo enviado.</p>" : "";
+
+    atividades.forEach((a,i)=>{
+        let div = document.createElement("div");
+        div.style.marginBottom="20px";
+        div.innerHTML = `
+            <strong>${a.titulo}</strong><br>
+            <small>${a.data}</small><br>
+            <button data-index="${i}">🗑 Remover</button>
+        `;
+        lista.appendChild(div);
+    });
+
+    lista.querySelectorAll("button").forEach(b=>{
+        b.addEventListener("click",()=>{
+            let atividades = JSON.parse(localStorage.getItem("atividades")) || [];
+            if(confirm("Remover este vídeo?")){
+                atividades.splice(b.dataset.index,1);
+                localStorage.setItem("atividades", JSON.stringify(atividades));
+                listarProfessor();
+            }
+        });
+    });
+}
+
+listarProfessor();
+    
 </script>
 
 </body>
+
 </html>
