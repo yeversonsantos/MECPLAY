@@ -197,10 +197,40 @@ function carregarAtividades(){
 }
 carregarAtividades();
 
+  <!-- Dentro da função carregarAtividades(), substitua o forEach -->
+atividades.forEach((a, index) => {
+    let div = document.createElement("div");
+    div.style.marginBottom = "20px";
+    div.innerHTML = `
+        <h3>${a.titulo}</h3>
+        <video controls width="100%" style="border:2px solid #000; border-radius:8px;">
+            <source src="${a.video}" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+        <p><small>📅 ${a.data}</small></p>
+        <button class="btn btn-remove" data-index="${index}">🗑 Remover Vídeo</button>
+    `;
+    lista.appendChild(div);
+});
+
+// Evento de remoção
+document.querySelectorAll(".btn-remove").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+        let atividades = JSON.parse(localStorage.getItem("atividades")) || [];
+        const idx = btn.dataset.index;
+        if(confirm("Tem certeza que deseja remover este vídeo?")){
+            atividades.splice(idx,1);
+            localStorage.setItem("atividades", JSON.stringify(atividades));
+            carregarAtividades(); // Atualiza a lista
+        }
+    });
+});
+
 </script>
 </body>
 
 </html>
+
 
 
 
