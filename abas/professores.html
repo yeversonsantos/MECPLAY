@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área dos Professores - MECPLAY</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to right, #ff7f50, #ffb347);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    header {
+        background: #ff7f50;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    nav {
+        background: #ff9966;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 10px;
+    }
+    nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        background: #ff7f50;
+        padding: 10px 15px;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+    nav a:hover {
+        background: #ffb347;
+    }
+    main {
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        width: 80%;
+        max-width: 600px;
+        margin-bottom: 20px;
+    }
+    footer {
+        background: #ff7f50;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+    }
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+    button {
+        background: #ff7f50;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:hover {
+        background: #ffb347;
+    }
+</style>
+</head>
+<body>
+
+<header>Área dos Professores - MECPLAY</header>
+
+<nav>
+    <a href="professores.html">Início</a>
+    <a href="turmas.html">Turmas</a>
+    <a href="avaliacoes.html">Avaliações</a>
+    <a href="login.html">Sair</a>
+</nav>
+
+<main>
+    <div class="card">
+        <h2>Bem-vindo, Professor(a)!</h2>
+        <p>Aqui você pode gerenciar suas turmas, cadastrar atividades e acompanhar o desempenho dos alunos.</p>
+    </div>
+
+    <div class="card">
+        <h2>Enviar Atividade em Vídeo</h2>
+        <form id="atividadeForm">
+            <label for="titulo">Título da Atividade:</label><br>
+            <input type="text" id="titulo" name="titulo" required><br><br>
+
+            <label for="video">Selecione o Arquivo de Vídeo (.mp4):</label><br>
+            <input type="file" id="video" name="video" accept="video/mp4" required><br><br>
+
+            <button type="submit">📤 Enviar Vídeo</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    MECPLAY © 2025 - Plataforma Educacional Inclusiva
+</footer>
+
+<script>
+document.getElementById("atividadeForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const titulo = document.getElementById("titulo").value;
+    const file = document.getElementById("video").files[0];
+
+    if(!file){
+        alert("Selecione um vídeo!");
+        return;
+    }
+
+    // Criar URL temporária do arquivo enviado
+    const videoURL = URL.createObjectURL(file);
+
+    let atividades = JSON.parse(localStorage.getItem("atividades")) || [];
+    atividades.push({ titulo, video: videoURL, data: new Date().toLocaleString() });
+
+    localStorage.setItem("atividades", JSON.stringify(atividades));
+
+    alert("✅ Vídeo enviado com sucesso!");
+    this.reset();
+});
+</script>
+
+</body>
+</html>
