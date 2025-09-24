@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Professores</title>
+<title>Login - Instrutor</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -81,7 +81,7 @@
 <body>
 
 <div class="login-container" role="form" aria-label="Login de Professores">
-    <h2>Login - Professores</h2>
+    <h2>Login - Instrutor</h2>
     <label for="username">Usuário:</label>
     <input type="text" id="username" aria-required="true">
 
@@ -104,7 +104,7 @@ function loginProfessor() {
     }
 
     // Usuário e senha para professores
-    if(user === 'professor' && pass === '123') {
+    if(user === 'Instrutor' && pass === '123') {
         localStorage.setItem("professor_logado", "true");
         message.style.color = "green";
         message.textContent = "Login bem-sucedido! Redirecionando...";
@@ -120,3 +120,4 @@ function loginProfessor() {
 
 </body>
 </html>
+
