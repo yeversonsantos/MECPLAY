@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEC PLAY - Progresso do Aluno</title>
+
+  <script>
+    // Verifica se está logado
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+  
+  <style>
+    body {
+      background: linear-gradient(180deg, #0096ff, #005bb5);
+      font-family: Arial, sans-serif;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2rem;
+      color: #FFD700;
+      text-align: center;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    table {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 750px;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    th, td {
+      padding: 18px;
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+      font-size: 1rem;
+    }
+
+    th {
+      background: #FFD700;
+      color: #000;
+      font-size: 1.2rem;
+    }
+
+    tr:hover {
+      background: #f0f8ff;
+    }
+
+    /* Barra de progresso */
+    .progress-container {
+      width: 100%;
+      background: #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 25px;
+      margin-top: 5px;
+    }
+
+    .progress-bar {
+      height: 25px;
+      text-align: center;
+      color: #fff;
+      font-size: 0.9rem;
+      line-height: 25px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    /* Cores dinâmicas */
+    .baixo { background: #d9534f; }   /* vermelho */
+    .medio { background: #f0ad4e; }   /* amarelo */
+    .alto  { background: #5cb85c; }   /* verde */
+
+    /* Participação */
+    .participacao {
+      font-weight: bold;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    /* Ícones */
+    .icone {
+      font-size: 1.2rem;
+      margin-left: 8px;
+    }
+
+    .voltar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      background: #fff;
+      border-radius: 50%;
+      padding: 12px;
+      border: 3px solid #000;
+      cursor: pointer;
+      text-decoration: none;
+      color: #000;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .voltar:hover, .voltar:focus {
+      background: #FFD700;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Progresso do Aluno</h1>
+
+  <table aria-label="Tabela de progresso do aluno">
+    <tr>
+      <th>Disciplina</th>
+      <th>Desempenho</th>
+      <th>Participação</th>
+    </tr>
+    <tr>
+      <td>Eletricidade Básica</td>
+      <td>
+        ✅
+        <div class="progress-container">
+          <div class="progress-bar alto" style="width: 85%;">85%</div>
+        </div>
+      </td>
+      <td class="participacao">80% de presença</td>
+    </tr>
+    <tr>
+      <td>Elementos de Máquinas</td>
+      <td>
+        ⚠️
+        <div class="progress-container">
+          <div class="progress-bar medio" style="width: 70%;">70%</div>
+        </div>
+      </td>
+      <td class="participacao">90% de presença</td>
+    </tr>
+    <tr>
+      <td>Processo de Torneamento</td>
+      <td>
+        ✅
+        <div class="progress-container">
+          <div class="progress-bar alto" style="width: 92%;">92%</div>
+        </div>
+      </td>
+      <td class="participacao">100% de presença</td>
+    </tr>
+    <tr>
+      <td>Metrologia</td>
+      <td>
+        ❌
+        <div class="progress-container">
+          <div class="progress-bar baixo" style="width: 68%;">68%</div>
+        </div>
+      </td>
+      <td class="participacao">70% de presença</td>
+    </tr>
+    <tr>
+      <td>Pneumática</td>
+      <td>
+        ✅
+        <div class="progress-container">
+          <div class="progress-bar alto" style="width: 80%;">80%</div>
+        </div>
+      </td>
+      <td class="participacao">90% de presença</td>
+    </tr>
+  </table>
+
+  <a href="home.html" class="voltar" aria-label="Voltar para a página inicial">↩</a>
+
+</body>
+</html>
