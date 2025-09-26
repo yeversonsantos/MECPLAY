@@ -189,7 +189,9 @@
     <p><strong>Nome:</strong> ALUNO SENAI</p>
     <p><strong>Email:</strong> alunosenai.@aluno.senai.br</p>
     <p><strong>RA:</strong> 0631</p>
-    <button onclick="sair()">Sair</button>
+    <button onclick="sair()">
+      <a href="login.html">Sair</a>
+    </button>
   </div>
 </div>
 
@@ -236,14 +238,11 @@
         document.body.classList.toggle("high-contrast");
       }
     });
-   <script>
-    function sair() {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
+    
   </script>
 </body>
 </html>
+
 
 
 
