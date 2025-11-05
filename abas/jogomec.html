@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oficina da Vida — Perguntas únicas por sessão</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Howler -->
+  <script src="https://unpkg.com/howler"></script>
+
+  <style>
+    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
+    .path-wrap { position:relative; height:520px; background: linear-gradient(180deg,#FEF3C7 0%, #FDE68A 100%); border-radius:16px; padding:16px; overflow:hidden; }
+    .node { position:absolute; transform:translate(-50%,-50%); transition: box-shadow .18s, transform .18s; }
+    .tile { width:72px; height:72px; border-radius:14px; display:flex;align-items:center;justify-content:center;box-shadow: 0 6px 12px rgba(0,0,0,0.08); color:#fff; font-weight:700; flex-direction:column; text-align:center; }
+    .player { position:absolute; width:40px;height:40px;border-radius:999px; display:flex;align-items:center;justify-content:center;color:white;font-weight:700; box-shadow: 0 6px 18px rgba(0,0,0,0.18); transition: left .45s, top .45s; pointer-events:none; }
+    .connector { position:absolute; height:6px; transform-origin:left center; }
+    .ring-soft { box-shadow: 0 0 0 8px rgba(99,102,241,0.08); }
+    .fade-in { animation: fadeIn .22s ease-out; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform: translateY(0);} }
+
+    .modal-backdrop { z-index: 60; }
+    .modal-card { z-index: 70; }
+
+    @media (max-width:640px){
+      .path-wrap{ height:420px; }
+      .tile{ width:60px; height:60px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 to-pink-50 text-gray-900">
+  <div class="max-w-6xl mx-auto p-6">
+    <header class="flex items-start justify-between mb-6 gap-4">
+      <div>
+        <h1 class="text-2xl font-extrabold">Oficina da Vida — Perguntas Únicas</h1>
+        <p class="text-sm text-gray-700 mt-1">Cada pergunta só aparece uma vez por sessão — não é possível pular.</p>
+      </div>
+
+      <div class="flex flex-col items-end gap-3">
+        <label class="flex items-center gap-2 text-sm">
+          <input id="calm" type="checkbox" class="h-4 w-4" /> Modo calmo
+        </label>
+        <div class="flex items-center gap-3">
+          <button id="btnEditor" class="px-3 py-2 rounded bg-indigo-600 text-white shadow">Editar Perguntas</button>
+          <button id="btnRoll" class="px-4 py-3 rounded bg-emerald-500 text-white font-bold shadow-lg">Lançar Dado</button>
+          <div id="diceShow" class="w-16 h-16 rounded bg-white flex items-center justify-center font-bold shadow">—</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid md:grid-cols-3 gap-6">
+      <section class="md:col-span-2">
+        <div class="mb-3 flex items-center gap-6">
+          <div>
+            <div class="text-xs text-gray-600">Posição</div>
+            <div id="pos" class="font-mono text-lg font-semibold">0</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-600">Pontuação</div>
+            <div id="score" class="font-bold text-lg">0</div>
+          </div>
+          <div class="ml-auto text-sm text-gray-600">Escolher cor do peão</div>
+          <div class="flex gap-2">
+            <button data-color="#EF4444" class="w-8 h-8 rounded-full" style="background:#EF4444"></button>
+            <button data-color="#F97316" class="w-8 h-8 rounded-full" style="background:#F97316"></button>
+            <button data-color="#10B981" class="w-8 h-8 rounded-full" style="background:#10B981"></button>
+            <button data-color="#3B82F6" class="w-8 h-8 rounded-full" style="background:#3B82F6"></button>
+            <button data-color="#8B5CF6" class="w-8 h-8 rounded-full" style="background:#8B5CF6"></button>
+          </div>
+        </div>
+
+        <div id="pathWrap" class="path-wrap relative">
+          <div id="player" class="player" style="left:0;top:0;background:#3B82F6">1</div>
+        </div>
+      </section>
+
+      <aside class="bg-white rounded-2xl p-4 shadow-lg">
+        <h3 class="font-semibold mb-2">Banco de perguntas</h3>
+        <div id="qList" class="space-y-2 max-h-64 overflow-auto mb-3"></div>
+
+        <div class="flex gap-2">
+          <button id="btnNew" class="flex-1 px-3 py-2 rounded bg-yellow-400 font-semibold">Criar pergunta</button>
+          <button id="btnShuffle" class="px-3 py-2 rounded bg-blue-500 text-white">Nova trilha</button>
+        </div>
+
+        <div class="mt-3 text-xs text-gray-600">Perguntas salvas localmente (localStorage).</div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Editor modal -->
+  <div id="editorModal" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 modal-backdrop p-4">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-xl modal-card">
+      <h2 class="text-lg font-semibold mb-2">Criar / Editar Pergunta</h2>
+
+      <div class="space-y-3">
+        <label class="block text-sm font-medium">Pergunta</label>
+        <textarea id="modalQuestion" rows="3" class="w-full p-2 border rounded"></textarea>
+
+        <label class="block text-sm font-medium">Dica (opcional)</label>
+        <input id="modalHint" class="w-full p-2 border rounded" />
+
+        <label class="block text-sm font-medium">Alternativas</label>
+        <div id="modalChoices" class="space-y-2 mb-2"></div>
+        <div class="flex gap-2">
+          <button id="modalAddChoice" class="px-3 py-1 rounded bg-gray-200">Adicionar alternativa</button>
+          <div class="text-xs text-gray-500 self-center">Marque a alternativa correta com o círculo.</div>
+        </div>
+
+        <div class="flex justify-between items-center mt-4">
+          <div class="text-sm text-gray-500">Pelo menos 2 alternativas são necessárias</div>
+          <div class="flex gap-2">
+            <button id="modalClose" class="px-3 py-1 rounded border">Fechar</button>
+            <button id="modalSave" class="px-4 py-2 rounded bg-green-600 text-white">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Play question modal (no close button - can't skip) -->
+  <div id="playModalWrap" class="hidden fixed inset-0 flex items-center justify-center bg-black/60 p-4" style="pointer-events:auto;">
+    <div id="playModal" class="bg-white rounded-2xl p-6 w-full max-w-xl fade-in">
+      <!-- injected -->
+    </div>
+  </div>
+
+  <!-- End-of-questions modal -->
+  <div id="endModalWrap" class="hidden fixed inset-0 flex items-center justify-center bg-black/60 p-4">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md text-center">
+      <h3 class="text-xl font-bold mb-3">Parabéns!</h3>
+      <p class="text-sm text-gray-700 mb-4">Você respondeu todas as perguntas cadastradas nesta sessão 🎉</p>
+      <div class="flex justify-center gap-3">
+        <button id="endRestart" class="px-4 py-2 rounded bg-blue-600 text-white">Reiniciar perguntas</button>
+        <button id="endClose" class="px-4 py-2 rounded border">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* Oficina da Vida — versão: perguntas únicas por sessão (sem pular)
+   - Editor modal cria/edita perguntas (salvas em localStorage)
+   - availableQuestions: fila de perguntas usadas durante a sessão (respondidas são removidas)
+   - play modal has NO close button: player must answer (can't skip)
+*/
+
+const sounds = {
+  correct: new Howl({ src: ['https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg'] }),
+  wrong:   new Howl({ src: ['https://actions.google.com/sounds/v1/cartoon/boing.ogg'] }),
+  roll:    new Howl({ src: ['https://actions.google.com/sounds/v1/dice/dice_roll.ogg'] })
+};
+
+const LS_Q = 'odv_questions_unique_v1';
+const LS_POS = 'odv_pos_unique_v1';
+const LS_SCORE = 'odv_score_unique_v1';
+const PATH_LEN = 18;
+
+let questions = []; // master list (editor)
+let availableQuestions = []; // questions left to ask this session
+let path = [];
+let posIdx = Number(localStorage.getItem(LS_POS) || 0);
+let score = Number(localStorage.getItem(LS_SCORE) || 0);
+let playerColor = '#3B82F6';
+let editingId = null;
+
+// DOM
+const pathWrap = document.getElementById('pathWrap');
+const playerEl = document.getElementById('player');
+const posEl = document.getElementById('pos');
+const scoreEl = document.getElementById('score');
+const diceShow = document.getElementById('diceShow');
+const btnRoll = document.getElementById('btnRoll');
+const btnShuffle = document.getElementById('btnShuffle');
+const btnEditor = document.getElementById('btnEditor');
+const btnNew = document.getElementById('btnNew');
+const qList = document.getElementById('qList');
+
+const editorModal = document.getElementById('editorModal');
+const modalQuestion = document.getElementById('modalQuestion');
+const modalHint = document.getElementById('modalHint');
+const modalChoices = document.getElementById('modalChoices');
+const modalAddChoice = document.getElementById('modalAddChoice');
+const modalSave = document.getElementById('modalSave');
+const modalClose = document.getElementById('modalClose');
+
+const playModalWrap = document.getElementById('playModalWrap');
+const playModal = document.getElementById('playModal');
+
+const endModalWrap = document.getElementById('endModalWrap');
+const endRestart = document.getElementById('endRestart');
+const endClose = document.getElementById('endClose');
+
+const calm = document.getElementById('calm');
+const colorButtons = document.querySelectorAll('[data-color]');
+
+function toast(msg, ms=1400){
+  const el = document.createElement('div'); el.className='fixed bottom-6 left-1/2 -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded';
+  el.textContent = msg; document.body.appendChild(el); setTimeout(()=>el.remove(), ms);
+}
+
+/* Storage */
+function loadQuestions(){ const raw = localStorage.getItem(LS_Q); questions = raw ? JSON.parse(raw) : []; }
+function saveQuestions(){ localStorage.setItem(LS_Q, JSON.stringify(questions)); }
+function saveState(){ localStorage.setItem(LS_POS, posIdx); localStorage.setItem(LS_SCORE, score); }
+
+/* Utilities */
+function randInt(n){ return Math.floor(Math.random()*n); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a; }
+
+/* Path generation */
+function genPath(len){
+  const cols = 8, rows = 6;
+  const margin = 40;
+  const boxW = (pathWrap.clientWidth - margin*2) / (cols-1);
+  const boxH = (pathWrap.clientHeight - margin*2) / (rows-1);
+  const occupied = new Set();
+  const nodes = [];
+  function key(r,c){ return r+','+c; }
+  let r = Math.floor(rows/2), c = Math.max(0, Math.floor(cols*0.1 + Math.random()*cols*0.3));
+  for (let i=0;i<len;i++){
+    if (i===0){ nodes.push({r,c}); occupied.add(key(r,c)); continue; }
+    const neigh = shuffle([[r-1,c],[r+1,c],[r,c+1],[r,c-1],[r-1,c+1],[r+1,c-1]]);
+    let found=false;
+    for (let [nr,nc] of neigh){
+      if (nr<0||nr>=rows||nc<0||nc>=cols) continue;
+      if (occupied.has(key(nr,nc))) continue;
+      nodes.push({r:nr,c:nc}); occupied.add(key(nr,nc)); r=nr; c=nc; found=true; break;
+    }
+    if (!found){
+      outer: for (let rr=0; rr<rows; rr++) for (let cc=0; cc<cols; cc++){
+        if (!occupied.has(key(rr,cc))){ nodes.push({r:rr,c:cc}); occupied.add(key(rr,cc)); r=rr; c=cc; break outer; }
+      }
+    }
+  }
+  const mapped = nodes.map(n => {
+    const x = margin + n.c * ((pathWrap.clientWidth - margin*2) / (cols-1));
+    const y = margin + n.r * ((pathWrap.clientHeight - margin*2) / (rows-1));
+    return { x, y, type: null };
+  });
+  for (let i=0;i<mapped.length;i++){
+    if (i % 2 === 0) mapped[i].type = 'question'; else mapped[i].type = 'bonus';
+  }
+  return mapped;
+}
+
+function nodeColor(i){
+  const pal = ['#F97316','#F59E0B','#10B981','#3B82F6','#8B5CF6','#EF4444','#06B6D4'];
+  return pal[i % pal.length];
+}
+
+/* Render path */
+function renderPath(){
+  pathWrap.innerHTML = '';
+  for (let i=0;i<path.length-1;i++){
+    const a = path[i], b = path[i+1];
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const dist = Math.hypot(dx,dy), angle = Math.atan2(dy,dx) * 180 / Math.PI;
+    const div = document.createElement('div'); div.className='connector';
+    div.style.width = dist + 'px'; div.style.left = a.x + 'px'; div.style.top = a.y + 'px';
+    div.style.transform = `translate(-0%, -50%) rotate(${angle}deg)`;
+    const bar = document.createElement('div'); bar.style.height='8px'; bar.style.borderRadius='6px'; bar.style.width='100%'; bar.style.background = `linear-gradient(90deg, ${nodeColor(i)}, ${nodeColor(i+1)})`;
+    div.appendChild(bar); pathWrap.appendChild(div);
+  }
+  path.forEach((n, idx) => {
+    const node = document.createElement('div'); node.className='node fade-in'; node.style.left = n.x + 'px'; node.style.top = n.y + 'px'; node.dataset.index = idx;
+    const tile = document.createElement('div'); tile.className='tile'; tile.style.background = nodeColor(idx); tile.style.border='4px solid rgba(255,255,255,0.6)';
+    const icon = document.createElement('div'); icon.style.fontSize='18px'; icon.textContent = (n.type === 'question') ? '❓' : '⭐';
+    const small = document.createElement('div'); small.style.fontSize='11px'; small.style.marginTop='6px'; small.textContent = String(idx);
+    tile.appendChild(icon); tile.appendChild(small); node.appendChild(tile); pathWrap.appendChild(node);
+    node.addEventListener('click', ()=> openEventAt(idx));
+  });
+  pathWrap.appendChild(playerEl);
+  movePlayerTo(posIdx, true);
+}
+
+/* Move player */
+function movePlayerTo(idx, instant=false){
+  idx = Math.max(0, Math.min(path.length-1, idx));
+  posIdx = idx; saveState(); posEl.textContent = posIdx;
+  const n = path[idx]; if (!n) return;
+  playerEl.style.left = (n.x) + 'px'; playerEl.style.top = (n.y-18) + 'px';
+  document.querySelectorAll('.node').forEach(el => el.classList.remove('ring-soft'));
+  const cur = document.querySelector(`.node[data-index="${idx}"]`); if (cur) cur.classList.add('ring-soft');
+}
+
+/* Gameplay: availableQuestions management */
+function resetAvailableQuestions(){
+  // shallow copy of questions (do not modify master)
+  availableQuestions = questions.map(q => ({ ...q }));
+}
+function removeFromAvailable(id){
+  availableQuestions = availableQuestions.filter(q => q.id !== id);
+  // if none left, show end modal
+  if (availableQuestions.length === 0) {
+    setTimeout(()=> showEndModal(), 250);
+  }
+}
+
+/* Events when landing on cell */
+function triggerCellEvent(idx){
+  const n = path[idx]; if (!n) return;
+  if (n.type === 'question'){
+    if (!availableQuestions.length){
+      // no available questions -> show end modal
+      showEndModal();
+      return;
+    }
+    // pick random from availableQuestions
+    const q = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+    openPlayModal(q);
+  } else {
+    score += 5; saveState(); updateUI(); toast('Bônus +5');
+  }
+}
+
+/* Play modal: NO close button to prevent skipping */
+function openPlayModal(q){
+  // block rolling while question open
+  btnRoll.disabled = true;
+  playModalWrap.classList.remove('hidden'); playModal.innerHTML = '';
+  const title = document.createElement('h3'); title.className='text-lg font-semibold'; title.textContent = q.question;
+  const hint = document.createElement('p'); hint.className='text-sm text-gray-600 my-2'; hint.textContent = q.hint || '';
+  playModal.appendChild(title); playModal.appendChild(hint);
+
+  const wrap = document.createElement('div'); wrap.className='space-y-2';
+  (q.choices || []).forEach((c, idx) => {
+    const b = document.createElement('button'); b.className='w-full text-left px-3 py-2 rounded border'; b.textContent = c || '(vazio)';
+    b.addEventListener('click', ()=>{
+      const ok = idx === q.answer;
+      if (ok){ sounds.correct.play(); score += 10; toast('Resposta correta! +10'); }
+      else { sounds.wrong.play(); score = Math.max(0, score - 5); toast('Resposta incorreta -5'); }
+      saveState(); updateUI();
+      // ensure this question will not be asked again this session
+      removeFromAvailable(q.id);
+      // close modal and re-enable rolling
+      closePlayModal();
+    });
+    wrap.appendChild(b);
+  });
+  playModal.appendChild(wrap);
+
+  // Note: no explicit close/skip button here — must answer
+}
+
+/* Close play modal and re-enable roll */
+function closePlayModal(){
+  playModalWrap.classList.add('hidden'); playModal.innerHTML = '';
+  btnRoll.disabled = false;
+}
+
+/* Editor modal handling */
+function openEditorModal(id=null){
+  editingId = id;
+  editorModal.classList.remove('hidden');
+  modalQuestion.value = ''; modalHint.value = ''; modalChoices.innerHTML = '';
+  if (id){
+    const q = questions.find(x=>x.id===id);
+    if (!q) return;
+    modalQuestion.value = q.question || '';
+    modalHint.value = q.hint || '';
+    (q.choices || []).forEach((c, i) => addModalChoice(c, i === q.answer));
+  } else {
+    addModalChoice(''); addModalChoice('');
+  }
+}
+function closeEditorModal(){ editorModal.classList.add('hidden'); editingId = null; modalQuestion.value=''; modalChoices.innerHTML=''; }
+
+function addModalChoice(value='', checked=false){
+  const row = document.createElement('div'); row.className='flex gap-2 items-center';
+  const radio = document.createElement('input'); radio.type='radio'; radio.name='correctChoice'; radio.className='h-4 w-4'; radio.checked = checked;
+  const input = document.createElement('input'); input.type='text'; input.className='flex-1 p-2 border rounded'; input.value = value; input.placeholder = 'Alternativa...';
+  const del = document.createElement('button'); del.className='px-2 bg-red-500 text-white rounded'; del.textContent='X';
+  del.addEventListener('click', ()=> row.remove());
+  row.appendChild(radio); row.appendChild(input); row.appendChild(del);
+  modalChoices.appendChild(row);
+}
+modalAddChoice.addEventListener('click', ()=> addModalChoice(''));
+modalClose.addEventListener('click', ()=> closeEditorModal());
+
+/* Save from editor: update master list and also availableQuestions (if new) */
+modalSave.addEventListener('click', ()=>{
+  const questionText = modalQuestion.value.trim();
+  if (!questionText) { alert('Escreva a pergunta'); return; }
+  const inputs = Array.from(modalChoices.querySelectorAll('input[type="text"], input:not([type])')).filter(i => i.type !== 'radio');
+  const choices = inputs.map(i => i.value.trim());
+  if (choices.length < 2) { alert('Adicione pelo menos 2 alternativas'); return; }
+  const radios = Array.from(modalChoices.querySelectorAll('input[type="radio"]'));
+  let answerIdx = radios.findIndex(r => r.checked);
+  if (answerIdx < 0) answerIdx = 0;
+  const hint = modalHint.value.trim();
+  const id = editingId || (Date.now() + Math.floor(Math.random()*1000));
+  const payload = { id, question: questionText, choices, answer: answerIdx, hint };
+
+  if (editingId) {
+    questions = questions.map(q => q.id === id ? payload : q);
+    // also update availableQuestions entries with same id
+    availableQuestions = availableQuestions.map(q => q.id === id ? payload : q);
+    toast('Pergunta atualizada');
+  } else {
+    questions.unshift(payload);
+    // add to availableQuestions as well (so teacher can create during session)
+    availableQuestions.unshift(payload);
+    toast('Pergunta criada');
+  }
+  saveQuestions(); renderQuestionList(); closeEditorModal();
+});
+
+/* Sidebar list */
+function renderQuestionList(){
+  qList.innerHTML = '';
+  if (!questions.length) qList.innerHTML = '<div class="text-sm text-gray-500">Sem perguntas.</div>';
+  questions.forEach(q=>{
+    const block = document.createElement('div'); block.className='p-3 border rounded';
+    const t = document.createElement('div'); t.className='font-medium text-sm'; t.textContent = q.question;
+    const meta = document.createElement('div'); meta.className='text-xs text-gray-500'; meta.textContent = `Alternativas: ${q.choices.length}`;
+    const btns = document.createElement('div'); btns.className='flex gap-2 mt-2';
+    const editBtn = document.createElement('button'); editBtn.className='px-2 py-1 bg-indigo-600 text-white rounded text-xs'; editBtn.textContent='Editar';
+    editBtn.addEventListener('click', ()=> openEditorModal(q.id));
+    const delBtn = document.createElement('button'); delBtn.className='px-2 py-1 bg-red-500 text-white rounded text-xs'; delBtn.textContent='Remover';
+    delBtn.addEventListener('click', ()=> {
+      if (!confirm('Remover pergunta?')) return;
+      questions = questions.filter(x => x.id !== q.id);
+      // also remove from availableQuestions so it won't be asked later this session
+      availableQuestions = availableQuestions.filter(x => x.id !== q.id);
+      saveQuestions(); renderQuestionList(); toast('Removida');
+    });
+    btns.appendChild(editBtn); btns.appendChild(delBtn);
+    block.appendChild(t); block.appendChild(meta); block.appendChild(btns);
+    qList.appendChild(block);
+  });
+}
+
+/* Dice roll */
+btnRoll.addEventListener('click', ()=>{
+  if (!playModalWrap.classList.contains('hidden')) return; // safety
+  sounds.roll.play();
+  const n = randInt(6) + 1;
+  diceShow.textContent = String(n);
+  btnRoll.disabled = true;
+  setTimeout(()=> {
+    const newIdx = Math.min(path.length - 1, posIdx + n);
+    movePlayerTo(newIdx);
+    triggerCellEvent(newIdx);
+    // don't re-enable roll here — playModal will re-enable when answered
+    saveState();
+  }, 700);
+});
+
+/* Shuffle / new trail */
+document.getElementById('btnShuffle').addEventListener('click', ()=>{
+  path = genPath(PATH_LEN);
+  posIdx = 0; movePlayerTo(0, true); renderPath();
+});
+
+/* Quick create */
+btnNew.addEventListener('click', ()=> openEditorModal(null));
+btnEditor.addEventListener('click', ()=> openEditorModal(null));
+
+/* Color picker */
+colorButtons.forEach(b => b.addEventListener('click', ()=> { playerColor = b.dataset.color; updateUI(); }));
+
+/* Calm mode */
+calm.addEventListener('change', ()=> {
+  if (calm.checked) document.body.style.background = '#ffffff'; else document.body.style.background = '';
+});
+
+/* End modal */
+function showEndModal(){ endModalWrap.classList.remove('hidden'); }
+endRestart.addEventListener('click', ()=> {
+  // refill availableQuestions from master list
+  resetAvailableQuestions();
+  endModalWrap.classList.add('hidden');
+  toast('Perguntas reiniciadas para a sessão');
+});
+endClose.addEventListener('click', ()=> endModalWrap.classList.add('hidden'));
+
+/* Utilities & init */
+function updateUI(){ posEl.textContent = posIdx; scoreEl.textContent = score; playerEl.style.background = playerColor; playerEl.textContent = String(posIdx + 1); }
+function loadAndInit(){
+  loadQuestions();
+  // availableQuestions is copy of questions at start
+  resetAvailableQuestions();
+  path = genPath(PATH_LEN);
+  renderPath();
+  renderQuestionList();
+  updateUI();
+}
+loadAndInit();
+
+/* helpers for node click testing */
+function openEventAt(idx){
+  const n = path[idx];
+  if (!n) return;
+  if (n.type === 'question'){
+    if (!availableQuestions.length){ showEndModal(); return; }
+    openPlayModal(availableQuestions[Math.floor(Math.random()*availableQuestions.length)]);
+  } else {
+    score += 5; saveState(); updateUI(); toast('Bônus +5');
+  }
+}
+
+/* close play modal via answer only (no skip) */
+playModalWrap.addEventListener('click', (ev)=> {
+  // clicking backdrop should not close (no skip). Do nothing.
+});
+
+/* keyboard shortcut E opens editor */
+window.addEventListener('keydown', (ev)=> { if (ev.key.toLowerCase() === 'e') openEditorModal(null); });
+
+/* close editor modal on backdrop click */
+editorModal.addEventListener('click', (ev)=> { if (ev.target === editorModal) closeEditorModal(); });
+
+</script>
+</body>
+</html>
