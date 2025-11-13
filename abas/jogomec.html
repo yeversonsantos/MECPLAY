@@ -334,7 +334,11 @@ function openPlayModal(q){
       sounds.correct.play(); 
       score += 10; 
       toast('Resposta correta! +10'); 
-      const nextPos = Math.min(path.length - 1, posIdx + 1);
+      // 👉 andar uma casa e pular bônus
+      let nextPos = Math.min(path.length - 1, posIdx + 1);
+      if (path[nextPos] && path[nextPos].type === 'bonus') {
+        nextPos = Math.min(path.length - 1, nextPos + 1);
+      }
       movePlayerTo(nextPos);
     }
       else { sounds.wrong.play(); score = Math.max(0, score - 5); toast('Resposta incorreta -5'); }
