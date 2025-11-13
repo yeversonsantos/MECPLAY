@@ -330,7 +330,13 @@ function openPlayModal(q){
     const b = document.createElement('button'); b.className='w-full text-left px-3 py-2 rounded border'; b.textContent = c || '(vazio)';
     b.addEventListener('click', ()=>{
       const ok = idx === q.answer;
-      if (ok){ sounds.correct.play(); score += 10; toast('Resposta correta! +10'); }
+      if (ok){ 
+      sounds.correct.play(); 
+      score += 10; 
+      toast('Resposta correta! +10'); 
+      const nextPos = Math.min(path.length - 1, posIdx + 1);
+      movePlayerTo(nextPos);
+    }
       else { sounds.wrong.play(); score = Math.max(0, score - 5); toast('Resposta incorreta -5'); }
       saveState(); updateUI();
       // ensure this question will not be asked again this session
