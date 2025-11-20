@@ -20,10 +20,22 @@ display:flex;align-items:center;gap:12px;transition:transform .15s, box-shadow .
 
 
 <div class="list">
-<div class="option" onclick="openSite('https://www.roblox.com/games/100108144233012/senaitrabalho')"><span class='icon'>📘</span> Aula Prática</div>
-<div class="option" onclick="openSite('jogomec.html')"><span class='icon'>🎮</span> Jogo MEC</div>
-<iframe id="viewer"></iframe>
-</div>
-</body>
+<div class="option" onclick="function openSite(url){ window.open(url,'_blank'); }('jogomec.html')"><span class='icon'>🎮</span> Jogo MEC</div>
+<div class="option" onclick="openSite('https://www.roblox.com/games/100108144233012/senaitrabalho')"><span class='icon'>🕹️</span> Roblox</div>
+<script>
 
+
+function openSite(url){
+window.open(url,'_blank');
+});
+}
+
+
+</script>
+<script>
+function openSite(url){
+window.location.href = url;
+}
+</script>
+</body>
 </html>
