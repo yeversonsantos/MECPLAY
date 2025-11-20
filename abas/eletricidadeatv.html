@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Atividade — Eletricidade Básica</title>
+  <style>
+    :root{--primary:#003366;--accent:#ffd700;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, Arial, sans-serif;background:linear-gradient(180deg,var(--primary),#004080);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px}
+    header{width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{margin:0;font-size:1.6rem;color:var(--accent);letter-spacing:.6px}
+    .conteudo{background:var(--card);color:#111;border-radius:14px;padding:22px;max-width:1100px;width:100%;margin-top:18px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .hero{display:flex;flex-direction:row;gap:18px;align-items:flex-start}
+    .hero img{width:260px;max-width:30%;border-radius:10px}
+    .texto{flex:1}
+    .atividades ul{padding-left:20px}
+    .botoes{margin-top:18px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;border:2px solid rgba(0,0,0,.08);margin-right:10px}
+    .btn-download{background:var(--accent);color:#000}
+    .btn-voltar{background:#f4f4f4;color:#000}
+    /* PIP Libras */
+    #librasContainer{position:fixed;right:20px;bottom:20px;width:320px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:3px solid var(--accent);background:#000;box-shadow:0 8px 30px rgba(0,0,0,.5);display:none;z-index:999}
+    #librasVideo{width:100%;height:100%;display:block}
+    /* controles de acessibilidade */
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .control{background:#eee;color:#000;padding:8px;border-radius:8px;border:none;cursor:pointer}
+    /* responsividade */
+    @media (max-width:820px){.hero{flex-direction:column}.hero img{max-width:100%;width:100%}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Prática — Eletricidade</h1>
+      <a class="btn btn-download" href="#eletricidade" style="margin-left:10px">⚡ Eletricidade Básica</a>
+  </header>
+  <button class="btn btn-voltar" onclick="history.back()" style="margin-top:10px">↩ Voltar</button>
+
+  
+
+  <main class="conteudo" role="main" aria-labelledby="titulo">
+
+    <!-- ABA: Eletricidade Básica -->
+    <section id="eletricidade" style="margin-top:40px">
+      <h2>⚡ Eletricidade Básica — Texto e Atividade</h2>
+      <img src="../fotos/eletricidade.jpg" alt="Imagem sobre eletricidade básica" style="width:100%;max-width:800px;border-radius:12px;margin:15px 0;">
+
+      <!-- AUDIO -->
+      <audio controls style="width:100%;margin:15px 0;">
+        <source src="../audio/eletricidade.mp3" type="audio/mp3">
+        Seu navegador não suporta áudio.
+      </audio>
+
+      <p>A eletricidade é uma forma de energia que se manifesta através do movimento de cargas elétricas. Em materiais condutores, como o cobre, esse fluxo ocorre quando existe uma diferença de potencial (tensão) entre dois pontos. A corrente elétrica pode ser contínua (CC) ou alternada (CA), sendo essencial para o funcionamento de máquinas, iluminação e dispositivos eletrônicos.</p>
+      <p>Três grandezas fundamentais definem o comportamento elétrico:</p>
+      <ul>
+        <li><strong>Tensão (V):</strong> diferença de potencial elétrico.</li>
+        <li><strong>Corrente (A):</strong> fluxo de elétrons.</li>
+        <li><strong>Resistência (Ω):</strong> oposição à passagem da corrente.</li>
+      </ul>
+      <p>Essas grandezas se relacionam pela Lei de Ohm: <strong>I = V ÷ R</strong>.</p>
+
+      <h3>📝 Atividade Prática</h3>
+      <ol>
+        <li>Monte um circuito simples com uma pilha, fios e um resistor.</li>
+        <li>Meça a <strong>tensão</strong> da pilha usando o multímetro.</li>
+        <li>Meça a <strong>corrente</strong> que passa pelo resistor.</li>
+        <li>Meça a <strong>resistência</strong> do resistor.</li>
+        <li>Use a Lei de Ohm para verificar se os valores coincidem com a teoria.</li>
+      </ol>
+      <p>Reflexão: os valores obtidos estão de acordo com o esperado pela Lei de Ohm?</p>
+
+      <a href="../dever/eletrica_basica.pdf" download class="btn btn-download">📄 Baixar PDF</a>
+    </section>
+
+  </main>
+
+  
+
+  <script>
+    // Acessibilidade: aumento/redução de fonte
+    const root = document.documentElement;
+    let baseFont = 16;
+    document.getElementById('increaseFont').addEventListener('click', ()=>{baseFont += 1; root.style.fontSize = baseFont + 'px'});
+    document.getElementById('decreaseFont').addEventListener('click', ()=>{baseFont = Math.max(12, baseFont -1); root.style.fontSize = baseFont + 'px'});
+    document.getElementById('toggleContrast').addEventListener('click', ()=>{document.body.classList.toggle('high-contrast');});
+
+    // (removido: sincronização Libras)
+
+    audio.addEventListener('ended', ()=>{ });', ()=>{ video.pause(); video.currentTime = 0; container.style.display='none'; container.setAttribute('aria-hidden','true'); });
+
+    // botão de abrir áudio (para UX)
+    document.getElementById('abrirAudio').addEventListener('click', ()=>{ audio.play(); audio.focus(); });
+
+    // Segurança: checa se usuário está "logado" (modo simples, igual ao original)
+    if(localStorage.getItem('logado') !== 'true'){
+      // não redireciona automaticamente — mostra aviso acessível
+      const nav = document.createElement('div'); nav.style.marginTop='12px'; nav.style.padding='10px'; nav.style.borderRadius='8px'; nav.style.background='#fffae6'; nav.style.color='#111'; nav.innerHTML = '<strong>Atenção:</strong> Você não está logado. Para acessar tarefas vinculadas, efetue login.';
+      document.querySelector('.conteudo').prepend(nav);
+    }
+
+    // pequenas melhorias de teclado
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'l' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); audio.play(); } });
+  </script>
+</body>
+</html>
