@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Atividade — Elementos de Máquinas</title>
+  <style>
+    :root{--primary:#003366;--accent:#ffd700;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, Arial, sans-serif;background:linear-gradient(180deg,var(--primary),#004080);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px}
+    header{width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{margin:0;font-size:1.6rem;color:var(--accent);letter-spacing:.6px}
+    .conteudo{background:var(--card);color:#111;border-radius:14px;padding:22px;max-width:1100px;width:100%;margin-top:18px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .hero{display:flex;flex-direction:row;gap:18px;align-items:flex-start}
+    .hero img{width:260px;max-width:30%;border-radius:10px}
+    .texto{flex:1}
+    .atividades ul{padding-left:20px}
+    .botoes{margin-top:18px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;border:2px solid rgba(0,0,0,.08);margin-right:10px}
+    .btn-download{background:var(--accent);color:#000}
+    .btn-voltar{background:#f4f4f4;color:#000}
+    /* PIP Libras */
+    #librasContainer{position:fixed;right:20px;bottom:20px;width:320px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:3px solid var(--accent);background:#000;box-shadow:0 8px 30px rgba(0,0,0,.5);display:none;z-index:999}
+    #librasVideo{width:100%;height:100%;display:block}
+    /* controles de acessibilidade */
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .control{background:#eee;color:#000;padding:8px;border-radius:8px;border:none;cursor:pointer}
+    /* responsividade */
+    @media (max-width:820px){.hero{flex-direction:column}.hero img{max-width:100%;width:100%}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Prática — Torneamento Convencional</h1>
+    <nav aria-label="Ações rápidas">
+      <a class="btn btn-download" href="/mnt/data/Elementos de Máquinas - Atividade (com Vídeo Libras PIP).html" download>📄 Baixar (orig.)</a>
+      <a class="btn btn-voltar" href="#" onclick="history.back();return false">↩ Voltar</a>
+    </nav>
+  </header>
+
+  <main class="conteudo" role="main" aria-labelledby="titulo">
+    <div class="hero">
+      <img src="/mnt/data/torno.jfif" alt="Torno convencional" style="width:260px;max-width:30%;border-radius:10px">
+      <img src="./elementos-de-maquinas.jpg" alt="Ilustração: elementos de máquinas x corpo humano" onerror="this.style.display='none'">
+      <div class="texto">
+        <p id="titulo">O torneamento convencional é um dos processos fundamentais na usinagem mecânica. Ele utiliza o torno para remover material de uma peça em rotação por meio de uma ferramenta de corte.
+
+        <section class="atividades" aria-labelledby="atividades-h"> class="atividades" aria-labelledby="atividades-h">
+          <h2 id="atividades-h">Atividades</h2>
+          <ul>
+            <li><strong>Atividade 1:</strong> Explique os princípios fundamentais do torneamento e descreva o movimento de rotação e avanço.</li>
+            <li><strong>Atividade 2:</strong> Identifique os principais componentes do torno convencional e suas funções.</li>
+            <li><strong>Atividade 3:</strong> Cite os tipos de ferramentas de torneamento e para que são utilizadas.</li>
+            <li><strong>Atividade 4:</strong> Diferencie torneamento cilíndrico externo, avanço transversal e faceamento.</li>
+            <li><strong>Atividade 5:</strong> Analise possíveis falhas no processo de torneamento e seus impactos na peça final.</li>
+          </ul>
+        </section>
+
+        <div class="botoes">
+          <a class="btn btn-download" href="/mnt/data/PRATICAS_TORNEARIA_CONVENCIONAL.pdf" download>📥 Baixar Guia PDF</a>
+          <button class="btn btn-voltar" id="abrirAudio">🔊 Ouvir introdução</button>
+        </div>
+
+        <div class="controls" aria-hidden="false">
+          <button class="control" id="increaseFont">A+</button>
+          <button class="control" id="decreaseFont">A-</button>
+          <button class="control" id="toggleContrast">Contraste</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- player de áudio sincronizado com vídeo Libras (PIP) -->
+    <div style="margin-top:18px">
+      <audio id="narAudio" controls preload="metadata" aria-label="Áudio narrado da introdução">
+        <source src="/mnt/data/audio/elementosdemaqu.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+    </div>
+
+  </main>
+
+  
+
+  <script>
+    // Acessibilidade: aumento/redução de fonte
+    const root = document.documentElement;
+    let baseFont = 16;
+    document.getElementById('increaseFont').addEventListener('click', ()=>{baseFont += 1; root.style.fontSize = baseFont + 'px'});
+    document.getElementById('decreaseFont').addEventListener('click', ()=>{baseFont = Math.max(12, baseFont -1); root.style.fontSize = baseFont + 'px'});
+    document.getElementById('toggleContrast').addEventListener('click', ()=>{document.body.classList.toggle('high-contrast');});
+
+    // (removido: sincronização Libras)
+
+    audio.addEventListener('ended', ()=>{ });', ()=>{ video.pause(); video.currentTime = 0; container.style.display='none'; container.setAttribute('aria-hidden','true'); });
+
+    // botão de abrir áudio (para UX)
+    document.getElementById('abrirAudio').addEventListener('click', ()=>{ audio.play(); audio.focus(); });
+
+    // Segurança: checa se usuário está "logado" (modo simples, igual ao original)
+    if(localStorage.getItem('logado') !== 'true'){
+      // não redireciona automaticamente — mostra aviso acessível
+      const nav = document.createElement('div'); nav.style.marginTop='12px'; nav.style.padding='10px'; nav.style.borderRadius='8px'; nav.style.background='#fffae6'; nav.style.color='#111'; nav.innerHTML = '<strong>Atenção:</strong> Você não está logado. Para acessar tarefas vinculadas, efetue login.';
+      document.querySelector('.conteudo').prepend(nav);
+    }
+
+    // pequenas melhorias de teclado
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'l' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); audio.play(); } });
+  </script>
+</body>
+</html>
